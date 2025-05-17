@@ -135,4 +135,4 @@ function getDraftCount(fullTeamName) {
         });
     });
 }
-getDraftCount("Golden State Warriors");
+getDraftCount(process.argv[3]);

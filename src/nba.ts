@@ -54,5 +54,5 @@ export async function getDraftCount(fullTeamName: string): Promise<string> {
   return `Team Name: ${fullTeamName} \nDraft Rounds: ${JSON.stringify(draftRounds)}`
 }
 
-getDraftCount("Golden State Warriors");
+getDraftCount(process.argv[3]);
 

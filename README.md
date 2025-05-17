@@ -12,6 +12,6 @@ NBA draft checker to show consolidated data of how many round 1 and round 2 draf
 
 # to run 
 
-`npm run test` and check test console to see results
+`npm run test` and check test console to see results for Golden State Warriors
 OR
-`node src/nba.js` to see an example with Golden State Warriors
+`node src/nba.js getDraftCount "<<insert full team name>>"` (for example: `node src/nba.js getDraftCount "Atlanta Hawks"`)
