@@ -36,23 +36,99 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTeam = getTeam;
-function getTeam(team) {
+exports.getTeamId = getTeamId;
+exports.getPlayers = getPlayers;
+exports.getDraftCount = getDraftCount;
+var sdk_1 = require("@balldontlie/sdk");
+var api = new sdk_1.BalldontlieAPI({ apiKey: "06e32978-bbf0-42e1-98a4-88d22171e81e" });
+function getTeamId(team) {
     return __awaiter(this, void 0, void 0, function () {
-        var teams;
+        var teams, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("https://www.balldontlie.io/api/v1/teams", {
-                        method: "GET",
-                        headers: {
-                            "Authorization": "06e32978-bbf0-42e1-98a4-88d22171e81e",
-                            "Content-Type": "application/json",
-                        },
-                    })];
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, api.nba.getTeams()];
                 case 1:
                     teams = _a.sent();
-                    console.log(teams);
-                    return [2 /*return*/, teams];
+                    return [2 /*return*/, teams.data.filter(function (NBATeam) {
+                            return NBATeam.full_name === team;
+                        })[0].id];
+                case 2:
+                    error_1 = _a.sent();
+                    console.error(error_1);
+                    return [2 /*return*/, error_1];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+function getPlayers(teamId) {
+    return __awaiter(this, void 0, void 0, function () {
+        var players, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, api.nba.getPlayers({
+                            team_ids: [teamId]
+                        })];
+                case 1:
+                    players = _a.sent();
+                    return [2 /*return*/, players.data];
+                case 2:
+                    error_2 = _a.sent();
+                    console.error(error_2);
+                    return [2 /*return*/, error_2];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+function getDraftCount(fullTeamName) {
+    return __awaiter(this, void 0, void 0, function () {
+        var draftRounds, team, players, _a, error_3;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    draftRounds = {
+                        "1": 0,
+                        "2": 0,
+                        "null": 0,
+                    };
+                    _b.label = 1;
+                case 1:
+                    _b.trys.push([1, 6, , 7]);
+                    return [4 /*yield*/, getTeamId(fullTeamName)];
+                case 2:
+                    team = _b.sent();
+                    if (!(typeof team === "number")) return [3 /*break*/, 4];
+                    return [4 /*yield*/, getPlayers(team)];
+                case 3:
+                    _a = _b.sent();
+                    return [3 /*break*/, 5];
+                case 4:
+                    _a = [];
+                    _b.label = 5;
+                case 5:
+                    players = _a;
+                    players.forEach(function (player) {
+                        if (player.draft_round == 1) {
+                            draftRounds["1"]++;
+                        }
+                        if (player.draft_round == 2) {
+                            draftRounds["2"]++;
+                        }
+                        if (player.draft_round == null) {
+                            draftRounds["null"]++;
+                        }
+                    });
+                    return [3 /*break*/, 7];
+                case 6:
+                    error_3 = _b.sent();
+                    console.error(error_3);
+                    return [2 /*return*/, error_3];
+                case 7: return [2 /*return*/, "Team Name: ".concat(fullTeamName, " \nDraft Rounds: ").concat(JSON.stringify(draftRounds))];
             }
         });
     });
