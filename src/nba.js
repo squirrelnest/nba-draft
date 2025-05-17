@@ -128,8 +128,11 @@ function getDraftCount(fullTeamName) {
                     error_3 = _b.sent();
                     console.error(error_3);
                     return [2 /*return*/, error_3];
-                case 7: return [2 /*return*/, "Team Name: ".concat(fullTeamName, " \nDraft Rounds: ").concat(JSON.stringify(draftRounds))];
+                case 7:
+                    console.log("Team Name: ".concat(fullTeamName, " \nDraft Rounds: ").concat(JSON.stringify(draftRounds)));
+                    return [2 /*return*/, "Team Name: ".concat(fullTeamName, " \nDraft Rounds: ").concat(JSON.stringify(draftRounds))];
             }
         });
     });
 }
+getDraftCount("Golden State Warriors");

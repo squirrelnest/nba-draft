@@ -4,10 +4,14 @@ NBA draft checker to show consolidated data of how many round 1 and round 2 draf
 
 # parameters
 
-teamName: string - the full team name you want to check, for example "Golden State Warriors"
+`teamName`: string - the full team name you want to check, for example "Golden State Warriors"
 
-# to install and run
+# to install
 
 `npm install`
-`npm run test`
 
+# to run 
+
+`npm run test` and check test console to see results
+OR
+`node src/nba.js` to see an example with Golden State Warriors

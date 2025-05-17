@@ -50,7 +50,9 @@ export async function getDraftCount(fullTeamName: string): Promise<string> {
     console.error(error);
     return error;
   }
-
+  console.log(`Team Name: ${fullTeamName} \nDraft Rounds: ${JSON.stringify(draftRounds)}`)
   return `Team Name: ${fullTeamName} \nDraft Rounds: ${JSON.stringify(draftRounds)}`
 }
+
+getDraftCount("Golden State Warriors");
 
